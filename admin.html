@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodExpress Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="admin-logo">🍔 FoodExpress</div>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#orders">Orders</a></li>
+      <li><a href="#menu">Food Menu</a></li>
+      <li><a href="#deals">Time Limited Deals</a></li>
+      <li><a href="index.html">Back to Home</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-header">
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p>Manage orders, food items, and limited time deals</p>
+      </div>
+      <div class="admin-profile">Administrator</div>
+    </header>
+
+    <section class="dashboard-section" id="overview">
+      <h2>Overview</h2>
+      <div class="stats-container">
+        <article class="stat-card">
+          <div class="stat-icon orange">📦</div>
+          <div><h3 id="totalOrders">0</h3><p>Total Orders</p></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon green">₹</div>
+          <div><h3 id="totalRevenue">₹0</h3><p>Total Revenue</p></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon blue">🍽️</div>
+          <div><h3 id="totalMenuItems">0</h3><p>Menu Items</p></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon purple">👥</div>
+          <div><h3 id="totalCustomers">0</h3><p>Customers</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="admin-section" id="orders">
+      <div class="section-heading">
+        <div>
+          <h2>Customer Orders</h2>
+          <p>View and update order status.</p>
+        </div>
+        <button class="refresh-btn" onclick="loadOrders()">Refresh Orders</button>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-section" id="menu">
+      <div class="section-heading">
+        <div>
+          <h2>Food Menu</h2>
+          <p>Add or remove items from the admin menu.</p>
+        </div>
+        <button class="add-food-btn" onclick="openAddFood()">+ Add Food</button>
+      </div>
+      <div class="admin-food-container" id="adminFoodContainer"></div>
+    </section>
+
+    <section class="admin-section" id="deals">
+      <h2>⚡ Create a Time Limited Deal</h2>
+      <p>Choose a discount and how long the offer should last.</p>
+
+      <form id="dealForm" class="deal-form">
+        <label for="dealName">Food name</label>
+        <input id="dealName" type="text" placeholder="Example: Chicken Burger" required>
+
+        <label for="dealPrice">Original price (₹)</label>
+        <input id="dealPrice" type="number" min="1" placeholder="199" required>
+
+        <label for="dealDiscount">Discount (%)</label>
+        <input id="dealDiscount" type="number" min="1" max="90" placeholder="20" required>
+
+        <label for="dealMinutes">Duration (minutes)</label>
+        <input id="dealMinutes" type="number" min="1" placeholder="30" required>
+
+        <button class="add-food-btn" type="submit">Publish Deal</button>
+      </form>
+
+      <h3>Current deals</h3>
+      <div id="adminDeals"></div>
+    </section>
+  </main>
+
+  <div class="modal" id="foodModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeFoodModal()" aria-label="Close">&times;</span>
+      <h2>Add Food Item</h2>
+
+      <form id="foodForm" onsubmit="addFood(event)">
+        <label for="foodName">Food name</label>
+        <input id="foodName" type="text" required>
+
+        <label for="foodCategory">Category</label>
+        <input id="foodCategory" type="text" placeholder="Pizza, Burger, Dessert…" required>
+
+        <label for="foodRestaurant">Restaurant</label>
+        <input id="foodRestaurant" type="text" required>
+
+        <label for="foodPrice">Price (₹)</label>
+        <input id="foodPrice" type="number" min="1" required>
+
+        <label for="foodEmoji">Food emoji</label>
+        <input id="foodEmoji" type="text" placeholder="🍕" required>
+
+        <button class="save-btn" type="submit">Save Food Item</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
